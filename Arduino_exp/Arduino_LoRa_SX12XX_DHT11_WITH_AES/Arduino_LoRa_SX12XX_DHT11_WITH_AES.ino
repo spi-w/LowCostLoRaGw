@@ -31,6 +31,12 @@
 #include <SPI.h>
 //this is the standard behaviour of library, use SPI Transaction switching
 #define USE_SPI_TRANSACTION  
+
+// Include sensors
+#include "Sensor.h"
+#include "DHT11_Humidity.h"
+#include "DHT11_Temperature.h"
+
 //indicate in this file the radio module: SX126X, SX127X or SX128X
 #include "RadioSettings.h"
 
@@ -184,6 +190,12 @@ unsigned char DevAddr[4] = { 0x00, 0x00, 0x00, node_addr };
 
 ///////////////////////////////////////////////////////////////////
 
+// SENSORS DEFINITION 
+//////////////////////////////////////////////////////////////////
+// CHANGE HERE THE NUMBER OF SENSORS, SOME CAN BE NOT CONNECTED
+const int number_of_sensors = 2;
+//////////////////////////////////////////////////////////////////
+
 ///////////////////////////////////////////////////////////////////
 // IF YOU SEND A LONG STRING, INCREASE THE SIZE OF MESSAGE
 uint8_t message[80];
@@ -296,6 +308,9 @@ RTCZero rtc;
 #endif
 
 unsigned long nextTransmissionTime=0L;
+
+// array containing sensors pointers
+Sensor* sensor_ptrs[number_of_sensors];
 
 #ifdef WITH_EEPROM
 struct sx1272config {
@@ -480,9 +495,23 @@ void lowPower(unsigned long time_ms) {
 
 void setup()
 {
-  // initialization of the temperature sensor
-  sensor_Init();
-  
+
+#ifdef LOW_POWER
+  bool low_power_status = IS_LOWPOWER;
+#ifdef __SAMD21G18A__
+  rtc.begin();
+#endif  
+#else
+  bool low_power_status = IS_NOT_LOWPOWER;
+#endif
+
+//////////////////////////////////////////////////////////////////
+// ADD YOUR SENSORS HERE   
+// Sensor(nomenclature, is_analog, is_connected, is_low_power, pin_read, pin_power, pin_trigger=-1)   
+  sensor_ptrs[0] = new DHT11_Temperature((char*)"TC", IS_NOT_ANALOG, IS_CONNECTED, low_power_status, 9, A0);
+  sensor_ptrs[1] = new DHT11_Humidity((char*)"HU", IS_NOT_ANALOG, IS_CONNECTED, low_power_status, 9, A0);
+//////////////////////////////////////////////////////////////////  
+
 #ifdef LOW_POWER
 #ifdef __SAMD21G18A__
   rtc.begin();
@@ -851,7 +880,7 @@ void loop(void)
       PRINTLN;
 
       // for testing, uncomment if you just want to test, without a real temp sensor plugged
-      temp = 22.5;
+      //temp = 22.5;
       
 #if defined WITH_APPKEY && not defined LORAWAN
       app_key_offset = sizeof(my_appKey);
@@ -861,25 +890,42 @@ void loop(void)
 
       uint8_t r_size;
 
-      // the recommended format if now \!TC/22.5
+      char final_str[80] = "\\!";
+      
+      //this is how we can wake up some sensors in advance in case they need a longer warmup time
+      //digitalWrite(sensor_ptrs[4]->get_pin_power(),HIGH);
+
+      // main loop for sensors, actually, you don't have to edit anything here
+      // just add a predefined sensor if needed or provide a new sensor class instance for a handle a new physical sensor
+      for (int i=0; i<number_of_sensors; i++) {
+
+          if (sensor_ptrs[i]->get_is_connected() || sensor_ptrs[i]->has_fake_data()) {
+
 #ifdef STRING_LIB
-      r_size=sprintf((char*)message+app_key_offset,"\\!%s/%s",nomenclature_str,String(temp).c_str());
-      
-      //for range test with a LoRaWAN gateway on TTN
-      //r_size=sprintf((char*)message+app_key_offset,"Hello from UPPA");
-      
+              if (i==0) {
+                  sprintf(final_str, "%s%s/%s", final_str, sensor_ptrs[i]->get_nomenclature(), String(sensor_ptrs[i]->get_value()).c_str());
+              } 
+              else {
+                  sprintf(final_str, "%s/%s/%s", final_str, sensor_ptrs[i]->get_nomenclature(), String(sensor_ptrs[i]->get_value()).c_str());
+              }
 #else
-      char float_str[10];
-      ftoa(float_str,temp,2);
-      r_size=sprintf((char*)message+app_key_offset,"\\!%s/%s",nomenclature_str,float_str);
-#endif
+              char float_str[10];            
+              ftoa(float_str, sensor_ptrs[i]->get_value(), 2);
+          
+              if (i==0) {
+                  sprintf(final_str, "%s%s/%s", final_str, sensor_ptrs[i]->get_nomenclature(), float_str);
+              } 
+              else {
+                  sprintf(final_str, "%s/%s/%s", final_str, sensor_ptrs[i]->get_nomenclature(), float_str);
+              }
+#endif              
+          }
+      }
+      
+      r_size=sprintf((char*)message+app_key_offset, final_str);
 
       PRINT_CSTSTR("Sending ");
       PRINT_STR("%s",(char*)(message+app_key_offset));
-      PRINTLN;
-      
-      PRINT_CSTSTR("Real payload size is ");
-      PRINT_VALUE("%d", r_size);
       PRINTLN;
 
       LT.printASCIIPacket(message, r_size);
