@@ -75,7 +75,7 @@
 //
 // DEFAULT CONFIGURATION: SF12BW125, no encryption, no LoRaWAN, no downlink
 //
-#define WITH_EEPROM
+//#define WITH_EEPROM
 ////////////////////////////
 //add 4-byte AppKey filtering - only for non-LoRaWAN mode
 #define WITH_APPKEY
@@ -100,7 +100,7 @@
 //#define EXTDEVADDR
 ////////////////////////////
 //this will enable a receive window after every transmission, uncomment it to also have LoRaWAN downlink
-//#define WITH_RCVW
+#define WITH_RCVW
 ////////////////////////////
 //normal behavior is to invert IQ for RX, the normal behavior at gateway is also to invert its IQ setting, only valid with WITH_RCVW
 #define INVERTIQ_ON_RX
@@ -191,7 +191,6 @@ uint8_t message[80];
 
 //create a library class instance called LT
 //to handle LoRa radio communications
-
 #ifdef SX126X
 SX126XLT LT;
 #endif
@@ -315,7 +314,7 @@ sx1272config my_sx1272config;
 #ifdef WITH_RCVW
 
 // will wait for 1s before opening the rcv window
-#define DELAY_BEFORE_RCVW 1000
+#define DELAY_BEFORE_RCVW 2000
 
 //this function is provided to parse the downlink command which is assumed to be in the format /@A6#
 //

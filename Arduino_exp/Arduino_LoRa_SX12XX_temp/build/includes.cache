@@ -1,0 +1,107 @@
+[
+  {
+    "Sourcefile": null,
+    "Include": "",
+    "Includepath": "/snap/arduino/61/hardware/arduino/avr/cores/arduino"
+  },
+  {
+    "Sourcefile": null,
+    "Include": "",
+    "Includepath": "/snap/arduino/61/hardware/arduino/avr/variants/eightanaloginputs"
+  },
+  {
+    "Sourcefile": "/home/william/Documents/Ecoles/cesure/rhf/lora/LowCostLoRaGw/Arduino_exp/Arduino_LoRa_SX12XX_temp/build/sketch/Arduino_LoRa_SX12XX_temp.ino.cpp",
+    "Include": "SPI.h",
+    "Includepath": "/snap/arduino/61/hardware/arduino/avr/libraries/SPI/src"
+  },
+  {
+    "Sourcefile": "/home/william/Documents/Ecoles/cesure/rhf/lora/LowCostLoRaGw/Arduino_exp/Arduino_LoRa_SX12XX_temp/build/sketch/Arduino_LoRa_SX12XX_temp.ino.cpp",
+    "Include": "SX127XLT.h",
+    "Includepath": "/home/william/snap/arduino/current/Arduino/libraries/SX12XX/src"
+  },
+  {
+    "Sourcefile": "/home/william/Documents/Ecoles/cesure/rhf/lora/LowCostLoRaGw/Arduino_exp/Arduino_LoRa_SX12XX_temp/build/sketch/Arduino_LoRa_SX12XX_temp.ino.cpp",
+    "Include": "AES-128_V10.h",
+    "Includepath": "/home/william/snap/arduino/current/Arduino/libraries/AES-128_V10"
+  },
+  {
+    "Sourcefile": "/home/william/Documents/Ecoles/cesure/rhf/lora/LowCostLoRaGw/Arduino_exp/Arduino_LoRa_SX12XX_temp/build/sketch/Arduino_LoRa_SX12XX_temp.ino.cpp",
+    "Include": "Base64.h",
+    "Includepath": "/home/william/snap/arduino/current/Arduino/libraries/Base64"
+  },
+  {
+    "Sourcefile": "/home/william/Documents/Ecoles/cesure/rhf/lora/LowCostLoRaGw/Arduino_exp/Arduino_LoRa_SX12XX_temp/build/sketch/Arduino_LoRa_SX12XX_temp.ino.cpp",
+    "Include": "LowPower.h",
+    "Includepath": "/home/william/snap/arduino/current/Arduino/libraries/LowPower"
+  },
+  {
+    "Sourcefile": "/home/william/Documents/Ecoles/cesure/rhf/lora/LowCostLoRaGw/Arduino_exp/Arduino_LoRa_SX12XX_temp/build/sketch/Arduino_LoRa_SX12XX_temp.ino.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/home/william/Documents/Ecoles/cesure/rhf/lora/LowCostLoRaGw/Arduino_exp/Arduino_LoRa_SX12XX_temp/build/sketch/local_lorawan.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/home/william/Documents/Ecoles/cesure/rhf/lora/LowCostLoRaGw/Arduino_exp/Arduino_LoRa_SX12XX_temp/build/sketch/local_lsc.cpp",
+    "Include": "LSC_Encrypt.h",
+    "Includepath": "/home/william/snap/arduino/current/Arduino/libraries/LSC_Encrypt/src"
+  },
+  {
+    "Sourcefile": "/home/william/Documents/Ecoles/cesure/rhf/lora/LowCostLoRaGw/Arduino_exp/Arduino_LoRa_SX12XX_temp/build/sketch/local_lsc.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/home/william/Documents/Ecoles/cesure/rhf/lora/LowCostLoRaGw/Arduino_exp/Arduino_LoRa_SX12XX_temp/build/sketch/my_temp_sensor_code.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/snap/arduino/61/hardware/arduino/avr/libraries/SPI/src/SPI.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/home/william/snap/arduino/current/Arduino/libraries/SX12XX/src/SX126XLT.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/home/william/snap/arduino/current/Arduino/libraries/SX12XX/src/SX127XLT.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/home/william/snap/arduino/current/Arduino/libraries/SX12XX/src/SX128XLT.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/home/william/snap/arduino/current/Arduino/libraries/AES-128_V10/AES-128_V10.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/home/william/snap/arduino/current/Arduino/libraries/AES-128_V10/Encrypt_V31.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/home/william/snap/arduino/current/Arduino/libraries/Base64/Base64.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/home/william/snap/arduino/current/Arduino/libraries/LowPower/LowPower.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/home/william/snap/arduino/current/Arduino/libraries/LSC_Encrypt/src/LSC_Encrypt.cpp",
+    "Include": "",
+    "Includepath": null
+  }
+]

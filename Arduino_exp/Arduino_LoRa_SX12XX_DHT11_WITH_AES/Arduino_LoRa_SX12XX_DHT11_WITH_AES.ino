@@ -81,7 +81,7 @@
 //
 // DEFAULT CONFIGURATION: SF12BW125, no encryption, no LoRaWAN, no downlink
 //
-#define WITH_EEPROM
+//#define WITH_EEPROM
 ////////////////////////////
 //add 4-byte AppKey filtering - only for non-LoRaWAN mode
 #define WITH_APPKEY
@@ -103,7 +103,7 @@
 //#define WITH_LSC
 ////////////////////////////
 //If you want to upload to LoRaWAN cloud without pure LoRaWAN format you have to provide a 4 bytes DevAddr and uncomment #define EXTDEVADDR
-//#define EXTDEVADDR
+#define EXTDEVADDR
 ////////////////////////////
 //this will enable a receive window after every transmission, uncomment it to also have LoRaWAN downlink
 //#define WITH_RCVW
@@ -848,39 +848,6 @@ void loop(void)
       PRINTLN_VALUE("%ld",nextTransmissionTime);
       PRINTLN_VALUE("%ld",(idlePeriodInSec==0)?(unsigned long)idlePeriodInMin*60*1000:(unsigned long)idlePeriodInSec*1000);
 #endif      
-
-#ifdef LOW_POWER
-      digitalWrite(PIN_POWER,HIGH);
-      // security?
-      delay(200);    
-#endif
-
-      temp = 0.0;
-      
-      /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      // change here how the temperature should be computed depending on your sensor type
-      //  
-    
-      for (int i=0; i<5; i++) {
-          temp += sensor_getValue();  
-          delay(100);
-      }
-
-      //
-      // 
-      // /////////////////////////////////////////////////////////////////////////////////////////////////////////// 
-      
-#ifdef LOW_POWER
-      digitalWrite(PIN_POWER,LOW);
-#endif
-      
-      PRINT_CSTSTR("Mean temp is ");
-      temp = temp/5;
-      PRINT_VALUE("%f", temp);
-      PRINTLN;
-
-      // for testing, uncomment if you just want to test, without a real temp sensor plugged
-      //temp = 22.5;
       
 #if defined WITH_APPKEY && not defined LORAWAN
       app_key_offset = sizeof(my_appKey);
